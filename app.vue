@@ -7,11 +7,23 @@
 </template>
 
 <script setup lang="ts">
-const posts = [
-  {id: 1, name: 'Тестовая задача №1', time: 'только что', priority: 'normal', marks: 'design, development'},
-  {id: 2, name: 'Тестовая задача №2', time: 'только что', priority: 'normal', marks: 'design, development'},
-  {id: 3, name: 'Тестовая задача №3', time: 'только что', priority: 'normal', marks: 'design, development'},
-] 
+// const posts = [
+//   {id: 1, name: 'Тестовая задача №1', time: 'только что', priority: 'normal', marks: 'design, development'},
+//   {id: 2, name: 'Тестовая задача №2', time: 'только что', priority: 'normal', marks: 'design, development'},
+//   {id: 3, name: 'Тестовая задача №3', time: 'только что', priority: 'normal', marks: 'design, development'},
+// ] 
+import { onMounted, ref } from 'vue';
+const posts = ref([]);
+
+onMounted(async () => {
+  try {
+    const res = await fetch("http://localhost:3001/posts");
+    posts.value = await res.json();
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 </script>
 
 <style>
